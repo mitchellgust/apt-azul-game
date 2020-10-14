@@ -59,4 +59,12 @@ bool checkIfFileExists(const char* file);
  */
 void quitGame();
 
+/**
+ * Returns a random number between 0 and Tile Bag length
+ * Assists in shuffling the tile bag.
+ * @param index : index of tile in tile bag
+ * @return : index to swap with
+ */
+int generateSwapIndex(int index);
+
 #endif //A2_UTILS_H

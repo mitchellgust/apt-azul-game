@@ -2,6 +2,7 @@
 #include <sstream>
 #include <iostream>
 #include <time.h>
+#include <random>
 
 
 std::vector<std::string> splitString(std::string str, char delimiter) {
@@ -70,4 +71,24 @@ void quitGame() {
 
     // Quit
     exit(0);
+}
+
+int generateSwapIndex(int index) {
+
+    int min = 0; // Allow tile to not be swaped
+    int max = NUM_OF_TILES_IN_TILE_BAG;
+
+    std::random_device engine;
+    // std::default_random_engine engine(seed);
+    std::uniform_int_distribution<int> uniform_dist(min, max);
+
+    int randomValue = -1; 
+    int swapIndex = -1;
+
+    randomValue = uniform_dist(engine);    
+    std::cout << "Randomly-chosen value: " << randomValue << std::endl; 
+    
+    swapIndex = randomValue + index;
+
+    return swapIndex;
 }
