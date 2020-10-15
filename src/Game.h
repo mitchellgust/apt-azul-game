@@ -180,6 +180,11 @@ public:
      */
     void printScores();
 
+    /**
+     * Takes the tile bag and rearranges the indexes
+     */
+    void shuffleTileBag(LinkedList<Tile*> *tileBag);
+
 private:
     // Stores all game players
     std::vector<Player*> players;

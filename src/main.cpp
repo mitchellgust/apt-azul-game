@@ -122,7 +122,6 @@ void showCredits() {
     std::cout << "Student ID: s3786695" << std::endl;
     std::cout << "Email: s3786695@student.rmit.edu.au" << std::endl;
     std::cout << "--------------------------" << std::endl;
-    std::cout << generateSwapIndex(0) << std::endl;
     std::cout << std::endl;
 }
 

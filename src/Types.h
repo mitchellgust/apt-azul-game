@@ -34,6 +34,7 @@
 #define MAX_RIGHT 4
 #define MAX_LEFT 0
 #define NUM_OF_TILES_IN_TILE_BAG 100
+#define TILE_BAG_BEFORE_SHUFFLE 99 // Without First Tile
 #define WHITESPACE ' '
 #define DOUBLE_WHITESPACE "  "
 #define NO_TILE '.'
