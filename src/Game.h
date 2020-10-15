@@ -183,7 +183,7 @@ public:
     /**
      * Takes the tile bag and rearranges the indexes
      */
-    void shuffleTileBag(LinkedList<Tile*> *tileBag);
+    void shuffleTileBag(LinkedList<Tile*> *tileBag, int seed);
 
 private:
     // Stores all game players

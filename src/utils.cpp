@@ -99,15 +99,20 @@ int generateSwapIndex()
 }
 
 int generateSwapIndexFromSeed(int seed) {
+    // Will use the same swap index when a seed is used !!
 
     int min = 0; // Allow tile to not be swaped
     int max = TILE_BAG_BEFORE_SHUFFLE - 1; 
     int swapIndex = -1;
 
+    std::cout << "----seed at generator: " << seed << std::endl;
     std::default_random_engine engine(seed);
     std::uniform_int_distribution<int> uniform_dist(min, max);
 
     swapIndex = uniform_dist(engine);
 
+    std::cout << "---swap index: " << swapIndex << std::endl;
+
     return swapIndex;
 }
+

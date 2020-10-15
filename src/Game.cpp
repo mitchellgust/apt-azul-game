@@ -395,22 +395,27 @@ void Game::setTileBagAutomatically()
         tileBag->addBack(new Tile(BLACK));
         tileBag->addBack(new Tile(LIGHT_BLUE));
     }
-
-    // Shuffle Tile Bag
-    shuffleTileBag(tileBag);
-
-    // Ensure First Tile is always first - Not included in shuffle
-    tileBag->addFront(new Tile(FIRST_TILE));
 }
 
-void Game::shuffleTileBag(LinkedList<Tile *> *tileBag)
+void Game::shuffleTileBag(LinkedList<Tile *> *tileBag, int seed)
 {
     int swapIndex = -1; // Invalid Index
+    std::cout << "Seed recieved by shuffleTileBag: " << seed << std::endl;
 
     for (int index = 0; index < TILE_BAG_BEFORE_SHUFFLE - 1; index++)
     {
-        // Generate Random Index
-        swapIndex = generateSwapIndex();
+        if (seed == 0)
+        {
+            std::cout << "Didnt use Seed" << std::endl;
+
+            // Generate Random Index
+            swapIndex = generateSwapIndex();
+        }
+        else
+        {
+            // Generate Random Index from Seed
+            generateSwapIndexFromSeed(seed);
+        }
 
         // Get Tile at Current and Random Index
         Tile *firstTile = tileBag->get(index);
@@ -723,7 +728,7 @@ void Game::execute(const std::string &command, Player *player)
             {
                 // Add tile to centre factory
                 center.push_back(new Tile(factories[factory][i].getName()));
-                
+
                 // Set non-chosen tiles to empty space
                 factories[factory][i].setName(WHITESPACE);
             }

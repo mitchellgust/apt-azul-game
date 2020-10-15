@@ -12,11 +12,12 @@
 
 [[noreturn]] void showMenu();
 void showCredits();
-void playGame();
+void playGame(int seed);
 void loadGame();
 std::vector<Player *> createPlayersFromUserInput();
 bool isNameValid(const std::string &name);
 void engageTestMode(char* fileName);
+int seed = 0;
 
 int main(int argc, char ** argv) {
     // Check number of argument
@@ -25,11 +26,12 @@ int main(int argc, char ** argv) {
         showMenu();
     }
     else if (argc == 3){
-        // 2 additional arguments directs to test mode
-        const std::string flag = "-t";
+        // 2 additional arguments directs to appropriate mode
+        const std::string testFlag = "-t";
+        const std::string seedFlag = "-s";
 
         // Check for Flag
-        if (argv[1] == flag){
+        if (argv[1] == testFlag){
             // If File Exists
             if (checkIfFileExists(argv[2])){
                 engageTestMode(argv[2]);
@@ -37,6 +39,22 @@ int main(int argc, char ** argv) {
             else {
                 std::cout << "No such file exists!" << std::endl;
             }
+        }
+        else if (argv[1] == seedFlag){
+
+            // Get the int from the inputed seed
+            seed = std::atoi(argv[2]);
+
+            // Test Seed input
+            std::cout << "Inputted Seed: " << seed << std::endl;
+
+            if (seed != 0) {
+                playGame(seed);
+            }
+            else {
+                std::cout << "Invalid Seed! Enter a Number. Seed can not equal 0" << std::endl;
+            }
+
         }
         else {
             std::cout << "Wrong flag" << std::endl;
@@ -89,7 +107,7 @@ int main(int argc, char ** argv) {
 
         } else {
             if (choice == 1) {
-                playGame();
+                playGame(seed);
             } else if (choice == 2) {
                 loadGame();
             } else if (choice == 3) {
@@ -128,15 +146,25 @@ void showCredits() {
 /**
  * This function will initialize an Azul game
  */
-void playGame() {
+void playGame(int seed) {
+
+    std::cout << "Seed recieved by play game: " << seed << std::endl;
+
     std::cout << std::endl;
     std::cout << "Starting a new Azul game" << std::endl;
     std::cout << std::endl;
 
     // Game Initialization
     auto game = new Game();
+    std::cout << "Before Players are added" << std::endl;
     game->addPlayers(createPlayersFromUserInput());
     game->setTileBagAutomatically();
+
+    // Shuffle Tile Bag
+    game->shuffleTileBag(game->getTileBag(), seed);
+
+    // Add First Tile to Front of Shuffled Tile Bag
+    game->getTileBag()->addFront(new Tile(FIRST_TILE));
 
     std::cout << "Let's Play!" << std::endl;
     std::cout << std::endl;
