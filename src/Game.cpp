@@ -1663,3 +1663,7 @@ void Game::printScores()
                   << std::endl;
     }
 }
+
+void Game::setSeed(int inputtedSeed) {
+    seed = inputtedSeed;
+}

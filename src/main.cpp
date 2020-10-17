@@ -177,6 +177,7 @@ void playGame(int seed)
 
     // Game Initialization
     auto game = new Game();
+    game->setSeed(seed);
     game->addPlayers(createPlayersFromUserInput());
     game->setTileBagAutomatically();
 
@@ -272,9 +273,13 @@ std::vector<Player *> createPlayersFromUserInput()
     // Player counter
     int playerCount = 1;
 
+    // This is to counter the cin.ignore when no input has been made yet
+    std::cout << "Press Enter if Blank Space Appears" << std::endl;
+
     // Clear input
     std::cin.clear();
     std::cin.ignore(10000, '\n');
+
 
     // End loop when num of players exceeds the ceiling
     while (playerCount <= NUM_OF_PLAYERS)

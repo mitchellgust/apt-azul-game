@@ -148,6 +148,7 @@ void shuffleTileBagDirectly(LinkedList<Tile *> *tileBag, int seed)
         *tileBag->get(index) = *tileBag->get(swapIndex);
         *tileBag->get(swapIndex) = temp;
 
+        // Decrement Range
         max--;
     }
 }

@@ -185,6 +185,12 @@ public:
      */
     void shuffleTileBag(LinkedList<Tile*> *tileBag, int seed);
 
+    /**
+     * Sets the private integer 'seed'
+     * @param inputtedSeed : new seed value
+     */
+    void setSeed(int inputtedSeed);
+
 private:
     // Stores all game players
     std::vector<Player*> players;
@@ -204,6 +210,9 @@ private:
 
     // The box lid contains all discarded tiles
     LinkedList<Tile*> * boxLid;
+
+    // Inputted Seed, otherwise the default invalid seed
+    int seed = IGNORED_SEED;
 };
 
 #endif // COSC_ASSIGN_TWO_GAME
