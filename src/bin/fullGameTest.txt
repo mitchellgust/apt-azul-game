@@ -51,3 +51,12 @@ turn 5 Y 5
 turn 0 L 3
 turn 0 U 4
 turn 0 Y 4
+turn 3 Y 4
+turn 4 R 3
+turn 5 B 1
+turn 1 U 4
+turn 2 Y 4
+turn 0 B 0
+turn 0 R 3
+turn 0 L 0
+turn 0 Y 0
