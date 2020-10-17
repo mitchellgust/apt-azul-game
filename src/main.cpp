@@ -181,7 +181,7 @@ void playGame(int seed)
     game->setTileBagAutomatically();
 
     // Shuffle Tile Bag
-    game->shuffleTileBag(game->getTileBag(), seed);
+    shuffleTileBagDirectly(game->getTileBag());
 
     // Add First Tile to Front of Shuffled Tile Bag
     game->getTileBag()->addFront(new Tile(FIRST_TILE));
@@ -274,6 +274,7 @@ std::vector<Player *> createPlayersFromUserInput()
 
     // Clear input
     std::cin.clear();
+    std::cin.ignore(10000, '\n');
 
     // End loop when num of players exceeds the ceiling
     while (playerCount <= NUM_OF_PLAYERS)
