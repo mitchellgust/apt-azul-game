@@ -17,6 +17,10 @@ Game::Game()
             factories[i][j] = *new Tile(WHITESPACE);
         }
     }
+
+    // Initalise Box Lid
+    boxLid = new LinkedList<Tile *>();
+
 }
 
 Game::~Game()
@@ -36,6 +40,9 @@ Game::~Game()
 
     // Delete tile bag;
     delete tileBag;
+
+    // Delete Box Lid
+    delete boxLid;
 }
 
 void Game::addPlayers(std::vector<Player *> p)
@@ -978,6 +985,15 @@ bool Game::endRound()
 
 void Game::reset()
 {
+    if(tileBag->getLength() == 0) {
+        std::cout << "Tile Bag is empty" << std::endl;
+
+        // for (int i = 0; i < boxLid->getLength() - 1; i ++) {
+        //     tileBag->addBack(boxLid->get(i));
+        //     boxLid->popFront();
+        // }
+    }
+
     // Fill factories from tile bag
     fillFactories();
     // Add First tile to center
@@ -987,8 +1003,18 @@ void Game::reset()
         // Reset Broken Row
         for (int i = 0; i < BROKEN_ROW_SIZE; ++i)
         {
-            // Add broken tiles back to the tile bag
-            tileBag->addBack(new Tile(player->getBrokenRow()[i].getName()));
+            // Only Add Valid Broken Row Elements
+            if (player->getBrokenRow()[i].getName() != WHITESPACE) {
+
+                // Add Broken tiles to the box lid
+                boxLid->addBack(new Tile(player->getBrokenRow()[i].getName()));
+                std::cout << "One Successful Add to boxLid" << std::endl;
+
+            }
+
+            // // Add broken tiles back to the tile bag
+            // tileBag->addBack(new Tile(player->getBrokenRow()[i].getName()));
+
             // Reset Broken Row
             player->getBrokenRow()[i].setName(WHITESPACE);
         }
@@ -996,7 +1022,7 @@ void Game::reset()
         // Reset Broken Row Count
         player->setBrokenRowCount(0);
 
-        // Reset Unlaid Rows
+        // Reset Unlaid Rows that are Full
         int rowCount = 1;
         for (int i = 0; i < MOSAIC_DIM; ++i)
         {

@@ -201,6 +201,10 @@ private:
     // Coordinates of Rcently Placed Tile
     int placedTileX;
     int placedTileY;
+
+    // The box lid contains all discarded tiles
+    LinkedList<Tile*> * boxLid;
+
 };
 
 #endif // COSC_ASSIGN_TWO_GAME

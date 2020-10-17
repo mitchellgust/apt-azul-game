@@ -90,7 +90,10 @@ int generateSwapIndex()
     int max = TILE_BAG_BEFORE_SHUFFLE - 1; 
     int swapIndex = -1;
 
-    std::random_device engine;
+    int seed = 10;
+
+    // std::random_device engine;
+    std::default_random_engine engine(seed);
     std::uniform_int_distribution<int> uniform_dist(min, max);
 
     swapIndex = uniform_dist(engine);
