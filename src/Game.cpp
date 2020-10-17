@@ -80,6 +80,9 @@ void Game::play()
     // Save tile bag to input vector;
     savedInputs.push_back(bag);
 
+    // Save Seed to file
+    savedInputs.push_back(std::to_string(seed));
+
     //Add Players to Game
     for (auto &player : players)
     {
@@ -1108,8 +1111,20 @@ void Game::testLoadGame(char *fileName)
         }
     }
 
+    if (lineCount <= 2)
+    {
+        getline(file, line);
+
+        // Set Seed
+        setSeed(std::stoi(line));
+
+        std::cout << "Seed: " << seed << std::endl;
+
+        lineCount++;
+    }
+
     // Fetch players' names
-    while (lineCount <= 3)
+    while (lineCount <= 4)
     {
         getline(file, line);
         if (line.empty())
@@ -1118,7 +1133,7 @@ void Game::testLoadGame(char *fileName)
             std::cout << "Disengaging test mode..." << std::endl;
             quitGame();
         }
-        if (lineCount == 2)
+        if (lineCount == 3)
         {
             players.push_back(new Player(line, lineCount - 1, true));
         }
@@ -1314,8 +1329,20 @@ void Game::load(const std::string &fileName)
         }
     }
 
+    if (lineCount <= 2)
+    {
+        getline(file, line);
+
+        // Set Seed
+        setSeed(std::stoi(line));
+
+        std::cout << "Seed: " << seed << std::endl;
+
+        lineCount++;
+    }
+
     // Grab players' names
-    while (lineCount <= 3)
+    while (lineCount <= 4)
     {
         getline(file, line);
         if (line.empty())
@@ -1329,7 +1356,7 @@ void Game::load(const std::string &fileName)
             savedInputs.push_back(line);
         }
 
-        if (lineCount == 2)
+        if (lineCount == 3)
         {
             players.push_back(new Player(line, lineCount - 1, true));
         }
@@ -1664,6 +1691,7 @@ void Game::printScores()
     }
 }
 
-void Game::setSeed(int inputtedSeed) {
+void Game::setSeed(int inputtedSeed)
+{
     seed = inputtedSeed;
 }
