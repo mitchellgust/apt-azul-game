@@ -1,8 +1,8 @@
 #include "utils.h"
+#include <random>
 #include <sstream>
 #include <iostream>
 #include <time.h>
-#include <random>
 
 std::vector<std::string> splitString(std::string str, char delimiter)
 {
@@ -112,7 +112,7 @@ int generateSwapIndexFromSeed(int seed)
     return swapIndex;
 }
 
-int shuffleTileBag(LinkedList<Tile *> *tileBag)
+void shuffleTileBagDirectly(LinkedList<Tile *> *tileBag)
 {
     // Reference made to Fisher-Yates shuffle: https://en.wikipedia.org/wiki/Fisher–Yates_shuffle#Fisher_and_Yates'_original_method
 
@@ -122,17 +122,43 @@ int shuffleTileBag(LinkedList<Tile *> *tileBag)
 
     std::random_device engine;
 
+    for (int i = 0; i < max; i++)
+    {
+        std::cout << tileBag->get(i)->getName();
+    }
+    std::cout << std::endl;
+
     // For each tile
     for (int index = max; index > 0; index--)
     {
         std::uniform_int_distribution<int> uniform_dist(min, max);
         swapIndex = uniform_dist(engine);
 
+        std::cout << "PRIOR SWAP i- : " << tileBag->get(index)->getName() << std::endl;
+        std::cout << "PRIOR SWAP si- : " << tileBag->get(swapIndex)->getName() << std::endl;
+        ;
+
+        std::cout << std::endl;
+
         // Swap Tile at Index and Randomised Swap Index
         Tile temp = *tileBag->get(index);
         *tileBag->get(index) = *tileBag->get(swapIndex);
         *tileBag->get(swapIndex) = temp;
 
+        std::cout << "AFTER SWAP i- : " << tileBag->get(index)->getName() << std::endl;
+        ;
+        std::cout << "AFTER SWAP si- : " << tileBag->get(swapIndex)->getName() << std::endl;
+        ;
+
+        std::cout << std::endl;
+        std::cout << std::endl;
+
         max--;
     }
+
+    for (int i = 0; i < tileBag->getLength() - 1; i++)
+    {
+        std::cout << tileBag->get(i)->getName();
+    }
+    std::cout << std::endl;
 }
