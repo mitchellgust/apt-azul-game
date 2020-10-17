@@ -450,8 +450,6 @@ LinkedList<Tile *> *Game::getTileBag()
 
 void Game::fillFactories()
 {
-    std::cout << "TileBag Length before filling factories: " << tileBag->getLength() << std::endl;
-
     // Fill factories with tiles from the tile bag
     for (int i = 0; i < NUM_OF_FACTORIES; ++i)
     {
@@ -468,8 +466,6 @@ void Game::fillFactories()
                 // Stop filling the factories
                 j = FACTORY_SIZE;
                 i = NUM_OF_FACTORIES;
-
-                std::cout << "Factory Filling Stopped - Tile Bag ran out of tiles" << std::endl;
             }
         }
     }
@@ -1036,7 +1032,7 @@ void Game::reset()
         // Does TileBag need to be restocked
         if (tileBag->getLength() == 0)
         {
-            std::cout << "Tile Bag is empty" << std::endl;
+            // Display Current Lengths
             std::cout << "TileBag Length: " << tileBag->getLength() << std::endl;
             std::cout << "BoxLid Length: " << boxLid->getLength() << std::endl;
 
@@ -1044,17 +1040,12 @@ void Game::reset()
             while (!(boxLid->isEmpty()))
             {
                 tileBag->addBack(boxLid->get(0));
+                // Remove Tile from Box Lid after Add to TileBag
                 boxLid->popFront();
             }
 
+            // Display Lengths after Restock
             std::cout << "Restocked - TileBag Length: " << tileBag->getLength() << std::endl;
-
-            for (int i = 0; i < (tileBag->getLength() - 1); i++)
-            {
-                std::cout << tileBag->get(i)->getName();
-            }
-            std::cout << std::endl;
-
             std::cout << "Restocked - BoxLid Length: " << boxLid->getLength() << std::endl;
         }
     }
