@@ -473,7 +473,6 @@ void Game::fillFactories()
             }
         }
     }
-    std::cout << "Built factories successfully" << std::endl;
 }
 
 void Game::printFactories()
@@ -991,19 +990,6 @@ bool Game::endRound()
 
 void Game::reset()
 {
-    std::cout << "Prior Reset - TileBag Length: " << tileBag->getLength() << std::endl;
-
-    for (int i = 0; i < tileBag->getLength() - 1; i++)
-    {
-        std::cout << tileBag->get(i)->getName() << std::endl;
-    }
-
-    std::cout << "Prior Reset - BoxLid Length: " << boxLid->getLength() << std::endl;
-
-    for (int i = 0; i < boxLid->getLength() - 1; i++)
-    {
-        std::cout << boxLid->get(i)->getName() << std::endl;
-    }
 
     // Fill factories from tile bag
     fillFactories();
@@ -1019,7 +1005,6 @@ void Game::reset()
             {
                 // Add Broken tiles to the box lid
                 boxLid->addBack(new Tile(player->getBrokenRow()[i].getName()));
-                std::cout << "One Successful Add to boxLid" << std::endl;
             }
 
             // // Add broken tiles back to the tile bag
@@ -1040,36 +1025,60 @@ void Game::reset()
             {
                 for (int j = 0; j < rowCount; ++j)
                 {
-                    boxLid->addBack(new Tile(player->getUnlaidRow()[i][j]));
+                    // Do not include Tile that has been added to mosaic
+                    if (j + 1 != rowCount)
+                    {
+                        boxLid->addBack(new Tile(player->getUnlaidRow()[i][j]));
+                    }
                     player->getUnlaidRow()[i][j].setName(NO_TILE);
                 }
             }
             rowCount++;
         }
 
-        // std::cout << "TileBag Length: " << tileBag->getLength() << std::endl;
+        std::cout << "TileBag Length: " << tileBag->getLength() << std::endl;
 
-        // for (int i = 0; i < tileBag->getLength() - 1; i++)
-        // {
-        //     std::cout << tileBag->get(i)->getName() << std::endl;
-        // }
+        for (int i = 0; i < tileBag->getLength() - 1; i++)
+        {
+            std::cout << tileBag->get(i)->getName() << std::endl;
+        }
 
-        // std::cout << "BoxLid Length: " << boxLid->getLength() << std::endl;
+        std::cout << "BoxLid Length: " << boxLid->getLength() << std::endl;
 
-        // for (int i = 0; i < boxLid->getLength() - 1; i++)
-        // {
-        //     std::cout << boxLid->get(i)->getName() << std::endl;
-        // }
+        for (int i = 0; i < boxLid->getLength() - 1; i++)
+        {
+            std::cout << boxLid->get(i)->getName() << std::endl;
+        }
 
         // Does TileBag need to be restocked
         if (tileBag->getLength() == 0)
         {
             std::cout << "Tile Bag is empty" << std::endl;
 
+            // for (int i = 0; i < boxLid->getLength() - 1; i++)
+            // {
+            //     tileBag->addBack(boxLid->get(i));
+            //     boxLid->popFront();
+            // }
+
+            while (!(boxLid->isEmpty()))
+            {
+                tileBag->addBack(boxLid->get(0));
+                boxLid->popFront();
+            }
+
+            std::cout << "Restocked - TileBag Length: " << tileBag->getLength() << std::endl;
+
+            for (int i = 0; i < tileBag->getLength() - 1; i++)
+            {
+                std::cout << tileBag->get(i)->getName() << std::endl;
+            }
+
+            std::cout << "Restocked - BoxLid Length: " << boxLid->getLength() << std::endl;
+
             for (int i = 0; i < boxLid->getLength() - 1; i++)
             {
-                tileBag->addBack(boxLid->get(i));
-                boxLid->popFront();
+                std::cout << boxLid->get(i)->getName() << std::endl;
             }
         }
     }
