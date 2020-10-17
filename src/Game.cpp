@@ -405,32 +405,34 @@ void Game::setTileBagAutomatically()
 
 void Game::shuffleTileBag(LinkedList<Tile *> *tileBag, int seed)
 {
-    int swapIndex = -1; // Invalid Index
+    std::cout << "------> Ran run shuffle method!!" << std::endl;
 
-    for (int index = 0; index < TILE_BAG_BEFORE_SHUFFLE - 1; index++)
-    {
-        if (seed == 0)
-        {
-            // Generate Random Index
-            swapIndex = generateSwapIndex();
-        }
-        else
-        {
-            // Generate Random Index from Seed
-            generateSwapIndexFromSeed(seed);
-        }
+    // int swapIndex = -1; // Invalid Index
 
-        // Get Tile at Current and Random Index
-        Tile *firstTile = tileBag->get(index);
-        Tile *secondTile = tileBag->get(swapIndex);
+    // for (int index = 0; index < TILE_BAG_BEFORE_SHUFFLE - 1; index++)
+    // {
+    //     if (seed == 0)
+    //     {
+    //         // Generate Random Index
+    //         swapIndex = generateSwapIndex();
+    //     }
+    //     else
+    //     {
+    //         // Generate Random Index from Seed
+    //         generateSwapIndexFromSeed(seed);
+    //     }
 
-        // Copy of Second Tile
-        Tile secondTileCopy = *secondTile;
+    //     // Get Tile at Current and Random Index
+    //     Tile *firstTile = tileBag->get(index);
+    //     Tile *secondTile = tileBag->get(swapIndex);
 
-        // Swap Tiles at Current and Random Index
-        *secondTile = *firstTile;
-        *firstTile = secondTileCopy;
-    }
+    //     // Copy of Second Tile
+    //     Tile secondTileCopy = *secondTile;
+
+    //     // Swap Tiles at Current and Random Index
+    //     *secondTile = *firstTile;
+    //     *firstTile = secondTileCopy;
+    // }
 }
 
 void Game::setTileBagFromString(const std::string &line)
