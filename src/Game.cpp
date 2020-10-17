@@ -459,12 +459,21 @@ void Game::fillFactories()
         {
             factories[i][j].setName(tileBag->get(0)->getName());
 
-            // Add Placed Tile to Box Lid
-
             //Remove tile from tile bag
             tileBag->popFront();
+
+            // If The TileBag has no more tiles
+            if (tileBag->getLength() == 0)
+            {
+                // Stop filling the factories
+                j = FACTORY_SIZE;
+                i = NUM_OF_FACTORIES;
+
+                std::cout << "Factory building stopped" << std::endl;
+            }
         }
     }
+    std::cout << "Built factories successfully" << std::endl;
 }
 
 void Game::printFactories()
@@ -982,6 +991,20 @@ bool Game::endRound()
 
 void Game::reset()
 {
+    std::cout << "Prior Reset - TileBag Length: " << tileBag->getLength() << std::endl;
+
+    for (int i = 0; i < tileBag->getLength() - 1; i++)
+    {
+        std::cout << tileBag->get(i)->getName() << std::endl;
+    }
+
+    std::cout << "Prior Reset - BoxLid Length: " << boxLid->getLength() << std::endl;
+
+    for (int i = 0; i < boxLid->getLength() - 1; i++)
+    {
+        std::cout << boxLid->get(i)->getName() << std::endl;
+    }
+
     // Fill factories from tile bag
     fillFactories();
     // Add First tile to center
@@ -1024,19 +1047,19 @@ void Game::reset()
             rowCount++;
         }
 
-        std::cout << "TileBag Length: " << tileBag->getLength() << std::endl;
+        // std::cout << "TileBag Length: " << tileBag->getLength() << std::endl;
 
-        for (int i = 0; i < tileBag->getLength() - 1; i++)
-        {
-            std::cout << tileBag->get(i)->getName() << std::endl;
-        }
+        // for (int i = 0; i < tileBag->getLength() - 1; i++)
+        // {
+        //     std::cout << tileBag->get(i)->getName() << std::endl;
+        // }
 
-        std::cout << "BoxLid Length: " << boxLid->getLength() << std::endl;
+        // std::cout << "BoxLid Length: " << boxLid->getLength() << std::endl;
 
-        for (int i = 0; i < boxLid->getLength() - 1; i++)
-        {
-            std::cout << boxLid->get(i)->getName() << std::endl;
-        }
+        // for (int i = 0; i < boxLid->getLength() - 1; i++)
+        // {
+        //     std::cout << boxLid->get(i)->getName() << std::endl;
+        // }
 
         // Does TileBag need to be restocked
         if (tileBag->getLength() == 0)
