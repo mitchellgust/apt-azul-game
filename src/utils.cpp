@@ -90,10 +90,7 @@ int generateSwapIndex()
     int max = TILE_BAG_BEFORE_SHUFFLE - 1;
     int swapIndex = -1;
 
-    // int seed = 10;
-
     std::random_device engine;
-    // std::default_random_engine engine(seed);
     std::uniform_int_distribution<int> uniform_dist(min, max);
 
     swapIndex = uniform_dist(engine);
@@ -113,4 +110,29 @@ int generateSwapIndexFromSeed(int seed)
     swapIndex = uniform_dist(engine);
 
     return swapIndex;
+}
+
+int shuffleTileBag(LinkedList<Tile *> *tileBag)
+{
+    // Reference made to Fisher-Yates shuffle: https://en.wikipedia.org/wiki/Fisher–Yates_shuffle#Fisher_and_Yates'_original_method
+
+    int min = 0; // Allow tile to not be swaped
+    int max = TILE_BAG_BEFORE_SHUFFLE - 1;
+    int swapIndex = -1; // Invalid swap index
+
+    std::random_device engine;
+
+    // For each tile
+    for (int index = max; index > 0; index--)
+    {
+        std::uniform_int_distribution<int> uniform_dist(min, max);
+        swapIndex = uniform_dist(engine);
+
+        // Swap Tile at Index and Randomised Swap Index
+        Tile temp = *tileBag->get(index);
+        *tileBag->get(index) = *tileBag->get(swapIndex);
+        *tileBag->get(swapIndex) = temp;
+
+        max--;
+    }
 }
