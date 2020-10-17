@@ -204,7 +204,6 @@ private:
 
     // The box lid contains all discarded tiles
     LinkedList<Tile*> * boxLid;
-
 };
 
 #endif // COSC_ASSIGN_TWO_GAME

@@ -20,10 +20,6 @@ Game::Game()
 
     // Initalise Box Lid
     boxLid = new LinkedList<Tile *>();
-
-
-    // Initalise Swap Indexes
-    boxLid = new LinkedList<Tile *>();
 }
 
 Game::~Game()
