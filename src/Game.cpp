@@ -20,6 +20,10 @@ Game::Game()
 
     // Initalise Box Lid
     boxLid = new LinkedList<Tile *>();
+
+
+    // Initalise Swap Indexes
+    boxLid = new LinkedList<Tile *>();
 }
 
 Game::~Game()
@@ -401,12 +405,6 @@ void Game::setTileBagAutomatically()
         tileBag->addBack(new Tile(BLACK));
         tileBag->addBack(new Tile(LIGHT_BLUE));
     }
-
-    // Shuffle Tile Bag
-    shuffleTileBag(tileBag);
-
-    // Add First Tile to Front - Not included in shuffle
-    tileBag->addFront(new Tile(FIRST_TILE));
 }
 
 void Game::shuffleTileBag(LinkedList<Tile *> *tileBag, int seed)
