@@ -16,31 +16,38 @@ void playGame(int seed);
 void loadGame();
 std::vector<Player *> createPlayersFromUserInput();
 bool isNameValid(const std::string &name);
-void engageTestMode(char* fileName);
+void engageTestMode(char *fileName);
 int seed = 0;
 
-int main(int argc, char ** argv) {
+int main(int argc, char **argv)
+{
     // Check number of argument
-    if (argc == 1){
+    if (argc == 1)
+    {
         // No additional arguments shows menu
         showMenu();
     }
-    else if (argc == 3){
+    else if (argc == 3)
+    {
         // 2 additional arguments directs to appropriate mode
         const std::string testFlag = "-t";
         const std::string seedFlag = "-s";
 
         // Check for Flag
-        if (argv[1] == testFlag){
+        if (argv[1] == testFlag)
+        {
             // If File Exists
-            if (checkIfFileExists(argv[2])){
+            if (checkIfFileExists(argv[2]))
+            {
                 engageTestMode(argv[2]);
             }
-            else {
+            else
+            {
                 std::cout << "No such file exists!" << std::endl;
             }
         }
-        else if (argv[1] == seedFlag){
+        else if (argv[1] == seedFlag)
+        {
 
             // Get the int from the inputed seed
             seed = std::atoi(argv[2]);
@@ -48,19 +55,22 @@ int main(int argc, char ** argv) {
             // Test Seed input
             std::cout << "Inputted Seed: " << seed << std::endl;
 
-            if (seed != 0) {
+            if (seed != 0)
+            {
                 playGame(seed);
             }
-            else {
+            else
+            {
                 std::cout << "Invalid Seed! Enter a Number. Seed can not equal 0" << std::endl;
             }
-
         }
-        else {
+        else
+        {
             std::cout << "Wrong flag" << std::endl;
         }
     }
-    else {
+    else
+    {
         std::cout << "Invalid number of arguments" << std::endl;
         std::cout << "./azul to run" << std::endl;
         std::cout << "./azul -t <testfile> to engage test mode" << std::endl;
@@ -71,13 +81,15 @@ int main(int argc, char ** argv) {
 /**
  * Displays Initial Menu
  */
-[[noreturn]] void showMenu() {
+[[noreturn]] void showMenu()
+{
     // Welcome message
     std::cout << "Welcome to Azul!" << std::endl;
     std::cout << "-----------------------" << std::endl;
     std::cout << std::endl;
 
-    while (true) {
+    while (true)
+    {
         // Print Menu Contents
         std::cout << "Menu" << std::endl;
         std::cout << "-----" << std::endl;
@@ -94,25 +106,35 @@ int main(int argc, char ** argv) {
         std::cin >> choice;
 
         // Check end of file
-        if (std::cin.eof()) {
+        if (std::cin.eof())
+        {
             quitGame();
         }
 
         // Check fail conditions
-        else if (std::cin.fail() || choice < 0 || choice > 4) {
+        else if (std::cin.fail() || choice < 0 || choice > 4)
+        {
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             std::cout << "Wrong Input. Please enter an integer number from 1 to 4" << std::endl;
             std::cout << std::endl;
-
-        } else {
-            if (choice == 1) {
+        }
+        else
+        {
+            if (choice == 1)
+            {
                 playGame(seed);
-            } else if (choice == 2) {
+            }
+            else if (choice == 2)
+            {
                 loadGame();
-            } else if (choice == 3) {
+            }
+            else if (choice == 3)
+            {
                 showCredits();
-            } else if (choice == 4) {
+            }
+            else if (choice == 4)
+            {
                 quitGame();
             }
         }
@@ -122,7 +144,8 @@ int main(int argc, char ** argv) {
 /**
  * Display the information of the authors of this program
  */
-void showCredits() {
+void showCredits()
+{
     std::cout << "--------------------------" << std::endl;
     std::cout << "Name: Anh Nguyen" << std::endl;
     std::cout << "Student ID: s3616128" << std::endl;
@@ -146,17 +169,14 @@ void showCredits() {
 /**
  * This function will initialize an Azul game
  */
-void playGame(int seed) {
-
-    std::cout << "Seed recieved by play game: " << seed << std::endl;
-
+void playGame(int seed)
+{
     std::cout << std::endl;
     std::cout << "Starting a new Azul game" << std::endl;
     std::cout << std::endl;
 
     // Game Initialization
     auto game = new Game();
-    std::cout << "Before Players are added" << std::endl;
     game->addPlayers(createPlayersFromUserInput());
     game->setTileBagAutomatically();
 
@@ -177,23 +197,24 @@ void playGame(int seed) {
 
     // Print Scores
     game->printFinalResults();
-
 }
 
 /**
  * This functional will load an Azul game from a file
  */
-void loadGame() {
+void loadGame()
+{
 
     bool valid = false;
     std::string fileName;
-    
+
     // Clear input
     std::cin.clear();
     std::cin.ignore(10000, '\n');
 
     std::cout << "Enter the name of save file: " << std::endl;
-    while (!valid){
+    while (!valid)
+    {
 
         std::cout << "> ";
 
@@ -201,15 +222,18 @@ void loadGame() {
         getline(std::cin, fileName);
 
         // Check EOF
-        if (!std::cin){
+        if (!std::cin)
+        {
             quitGame();
         }
         // Check if file exists
-        if (checkIfFileExists(fileName.c_str())){
+        if (checkIfFileExists(fileName.c_str()))
+        {
             // Break loop
             valid = true;
         }
-        else {
+        else
+        {
             // Display error message
             std::cout << "No such file exists. Please try again!" << std::endl;
         }
@@ -226,9 +250,11 @@ void loadGame() {
  * @param name
  * @return valid: true if valid, false if invalid
  */
-bool isNameValid(const std::string &name) {
+bool isNameValid(const std::string &name)
+{
     bool valid = true;
-    if (name.empty()) {
+    if (name.empty())
+    {
         valid = false;
     }
     return valid;
@@ -238,17 +264,21 @@ bool isNameValid(const std::string &name) {
  * Create a player vector based on stdin
  * @return a vector of player objects
  */
-std::vector<Player *> createPlayersFromUserInput() {
+std::vector<Player *> createPlayersFromUserInput()
+{
     // A vector to store player objects
     std::vector<Player *> players;
 
     // Player counter
     int playerCount = 1;
+
     // Clear input
     std::cin.clear();
-    std::cin.ignore(10000, '\n');
+
     // End loop when num of players exceeds the ceiling
-    while (playerCount <= NUM_OF_PLAYERS) {
+    while (playerCount <= NUM_OF_PLAYERS)
+    {
+
         std::string name;
         std::string savedName;
         std::cout << "Enter a name for player " << playerCount << std::endl;
@@ -258,32 +288,38 @@ std::vector<Player *> createPlayersFromUserInput() {
         std::cout << std::endl;
 
         // Check end of file
-        if (std::cin.eof()) {
+        if (std::cin.eof())
+        {
             quitGame();
         }
         // Validate input
-        else if (isNameValid(name)) {
+        else if (isNameValid(name))
+        {
             // Increase count by one
 
             // Initialize and add player object to the vector
-            if (playerCount == 1){
+            if (playerCount == 1)
+            {
                 players.push_back(new Player(name, playerCount, true));
             }
-            else {
+            else
+            {
                 players.push_back(new Player(name, playerCount, false));
             }
             playerCount++;
-        } else {
+        }
+        else
+        {
             std::cout << "Invalid name. Please try again" << std::endl;
         }
     }
     return players;
 }
 
-void engageTestMode(char* fileName){
+void engageTestMode(char *fileName)
+{
     // Initialize New Game
     auto game = new Game();
     // Load game from file
     game->testLoadGame(fileName);
-
 }

@@ -406,14 +406,11 @@ void Game::setTileBagAutomatically()
 void Game::shuffleTileBag(LinkedList<Tile *> *tileBag, int seed)
 {
     int swapIndex = -1; // Invalid Index
-    std::cout << "Seed recieved by shuffleTileBag: " << seed << std::endl;
 
     for (int index = 0; index < TILE_BAG_BEFORE_SHUFFLE - 1; index++)
     {
         if (seed == 0)
         {
-            std::cout << "Didnt use Seed" << std::endl;
-
             // Generate Random Index
             swapIndex = generateSwapIndex();
         }
@@ -1039,8 +1036,8 @@ void Game::reset()
         if (tileBag->getLength() == 0)
         {
             // Display Current Lengths
-            std::cout << "TileBag Length: " << tileBag->getLength() << std::endl;
-            std::cout << "BoxLid Length: " << boxLid->getLength() << std::endl;
+            std::cout << "-> TileBag Length: " << tileBag->getLength() << std::endl;
+            std::cout << "-> BoxLid Length: " << boxLid->getLength() << std::endl;
 
             // Add All Box Lid Contents to Tile Bag
             while (!(boxLid->isEmpty()))
