@@ -13,7 +13,7 @@
 #define BLACK 'U'
 
 #define NUM_OF_PLAYERS 2
-#define MAX_GAME_ROUNDS 7
+#define MAX_GAME_ROUNDS 6
 #define MOSAIC_DIM 5
 #define MOSAIC_BOARD_SIZE (MOSAIC_DIM * MOSAIC_DIM)
 #define NUM_OF_FACTORIES 5

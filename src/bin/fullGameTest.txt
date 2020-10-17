@@ -58,12 +58,5 @@ turn 1 U 4
 turn 2 Y 4
 turn 0 B 0
 turn 0 R 3
-turn 0 U 2
 turn 0 L 0
-turn 1 Y 4
-turn 2 L 5
-turn 3 Y 4
-turn 4 U 0
-turn 0 B 0
-turn 0 R 0
-turn 0 U 2
+turn 0 Y 0
