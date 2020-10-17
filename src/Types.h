@@ -39,6 +39,7 @@
 #define DOUBLE_WHITESPACE "  "
 #define NO_TILE '.'
 #define END_OF_FILE '\0'
+#define IGNORED_SEED 0
 
 #define DEFAULT_NAME "default"
 

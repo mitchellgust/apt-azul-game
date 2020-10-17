@@ -112,7 +112,7 @@ int generateSwapIndexFromSeed(int seed)
     return swapIndex;
 }
 
-void shuffleTileBagDirectly(LinkedList<Tile *> *tileBag)
+void shuffleTileBagDirectly(LinkedList<Tile *> *tileBag, int seed)
 {
     // Reference made to Fisher-Yates shuffle: https://en.wikipedia.org/wiki/Fisher–Yates_shuffle#Fisher_and_Yates'_original_method
 
@@ -120,45 +120,34 @@ void shuffleTileBagDirectly(LinkedList<Tile *> *tileBag)
     int max = TILE_BAG_BEFORE_SHUFFLE - 1;
     int swapIndex = -1; // Invalid swap index
 
+    // Deckare Seeded Engine
+    std::default_random_engine seededEngine(seed);
+    // Declare Regular Random Engine
     std::random_device engine;
-
-    for (int i = 0; i < max; i++)
-    {
-        std::cout << tileBag->get(i)->getName();
-    }
-    std::cout << std::endl;
 
     // For each tile
     for (int index = max; index > 0; index--)
     {
+        // Create new number from decrementing range
         std::uniform_int_distribution<int> uniform_dist(min, max);
-        swapIndex = uniform_dist(engine);
 
-        std::cout << "PRIOR SWAP i- : " << tileBag->get(index)->getName() << std::endl;
-        std::cout << "PRIOR SWAP si- : " << tileBag->get(swapIndex)->getName() << std::endl;
-        ;
-
-        std::cout << std::endl;
+        // If seed does not equals 0 -> (0 is read as Seed has not been entered)
+        if (seed != IGNORED_SEED)
+        {
+            // Use Seeded Engine
+            swapIndex = uniform_dist(seededEngine);
+        }
+        else
+        {
+            // Use Random Engine
+            swapIndex = uniform_dist(engine);
+        }
 
         // Swap Tile at Index and Randomised Swap Index
         Tile temp = *tileBag->get(index);
         *tileBag->get(index) = *tileBag->get(swapIndex);
         *tileBag->get(swapIndex) = temp;
 
-        std::cout << "AFTER SWAP i- : " << tileBag->get(index)->getName() << std::endl;
-        ;
-        std::cout << "AFTER SWAP si- : " << tileBag->get(swapIndex)->getName() << std::endl;
-        ;
-
-        std::cout << std::endl;
-        std::cout << std::endl;
-
         max--;
     }
-
-    for (int i = 0; i < tileBag->getLength() - 1; i++)
-    {
-        std::cout << tileBag->get(i)->getName();
-    }
-    std::cout << std::endl;
 }

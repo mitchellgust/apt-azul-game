@@ -77,7 +77,8 @@ int generateSwapIndexFromSeed(int seed);
 /**
  * Returns a shuffled tile bag
  * @param tilebag : LinkedList containing the current tile bag
+ * @param seed : Integer used to create particular shuffled tile result
  */
-void shuffleTileBagDirectly(LinkedList<Tile *> *tileBag);
+void shuffleTileBagDirectly(LinkedList<Tile *> *tileBag, int seed);
 
 #endif //A2_UTILS_H

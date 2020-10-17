@@ -181,7 +181,7 @@ void playGame(int seed)
     game->setTileBagAutomatically();
 
     // Shuffle Tile Bag
-    shuffleTileBagDirectly(game->getTileBag());
+    shuffleTileBagDirectly(game->getTileBag(), seed);
 
     // Add First Tile to Front of Shuffled Tile Bag
     game->getTileBag()->addFront(new Tile(FIRST_TILE));
