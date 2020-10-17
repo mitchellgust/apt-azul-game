@@ -84,34 +84,6 @@ void quitGame()
     exit(0);
 }
 
-int generateSwapIndex()
-{
-    int min = 0; // Allow tile to not be swaped
-    int max = TILE_BAG_BEFORE_SHUFFLE - 1;
-    int swapIndex = -1;
-
-    std::random_device engine;
-    std::uniform_int_distribution<int> uniform_dist(min, max);
-
-    swapIndex = uniform_dist(engine);
-
-    return swapIndex;
-}
-
-int generateSwapIndexFromSeed(int seed)
-{
-    int min = 0; // Allow tile to not be swaped
-    int max = TILE_BAG_BEFORE_SHUFFLE - 1;
-    int swapIndex = -1;
-
-    std::default_random_engine engine(seed);
-    std::uniform_int_distribution<int> uniform_dist(min, max);
-
-    swapIndex = uniform_dist(engine);
-
-    return swapIndex;
-}
-
 void shuffleTileBagDirectly(LinkedList<Tile *> *tileBag, int seed)
 {
     // Reference made to Fisher-Yates shuffle: https://en.wikipedia.org/wiki/Fisher–Yates_shuffle#Fisher_and_Yates'_original_method

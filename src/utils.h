@@ -60,22 +60,8 @@ bool checkIfFileExists(const char* file);
 void quitGame();
 
 /**
- * Returns a random number between 0 and Tile Bag length
- * Assists in shuffling the tile bag.
- * @return : index to swap with
- */
-int generateSwapIndex();
-
-/**
- * Returns a random number between 0 and Tile Bag length based on seed
- * Assists in shuffling the tile bag.
- * @param file : seed to use as a parameter of the engine
- * @return : index to swap with
- */
-int generateSwapIndexFromSeed(int seed);
-
-/**
  * Returns a shuffled tile bag
+ * Shuffle Based on Given Seed, or is randomly generated
  * @param tilebag : LinkedList containing the current tile bag
  * @param seed : Integer used to create particular shuffled tile result
  */
