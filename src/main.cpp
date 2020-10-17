@@ -12,12 +12,14 @@
 
 [[noreturn]] void showMenu();
 void showCredits();
-void playGame(int seed);
+void playGame(int seed, bool shuffleTiles);
 void loadGame();
 std::vector<Player *> createPlayersFromUserInput();
 bool isNameValid(const std::string &name);
 void engageTestMode(char *fileName);
+
 int seed = 0;
+bool shuffleTiles = true;
 
 int main(int argc, char **argv)
 {
@@ -57,7 +59,7 @@ int main(int argc, char **argv)
 
             if (seed != 0)
             {
-                playGame(seed);
+                playGame(seed, shuffleTiles);
             }
             else
             {
@@ -96,7 +98,8 @@ int main(int argc, char **argv)
         std::cout << "1. New Game" << std::endl;
         std::cout << "2. Load Game" << std::endl;
         std::cout << "3. Credits" << std::endl;
-        std::cout << "4. Quit" << std::endl;
+        std::cout << "4. Turn off/on Shuffled Tiles" << std::endl;
+        std::cout << "5. Quit" << std::endl;
 
         std::cout << std::endl;
         std::cout << "> ";
@@ -112,18 +115,18 @@ int main(int argc, char **argv)
         }
 
         // Check fail conditions
-        else if (std::cin.fail() || choice < 0 || choice > 4)
+        else if (std::cin.fail() || choice < 0 || choice > 5)
         {
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "Wrong Input. Please enter an integer number from 1 to 4" << std::endl;
+            std::cout << "Wrong Input. Please enter an integer number from 1 to 5" << std::endl;
             std::cout << std::endl;
         }
         else
         {
             if (choice == 1)
             {
-                playGame(seed);
+                playGame(seed, shuffleTiles);
             }
             else if (choice == 2)
             {
@@ -134,6 +137,22 @@ int main(int argc, char **argv)
                 showCredits();
             }
             else if (choice == 4)
+            {
+                // Switch Shuffled Tiles On or Off
+                if (shuffleTiles == false)
+                {
+                    shuffleTiles = true;
+                    std::cout << "Shuffled Tile turned on" << std::endl;
+
+                }
+                else
+                {
+                    shuffleTiles = false;
+                    std::cout << "Shuffled Tile turned off" << std::endl;
+
+                }
+            }
+            else if (choice == 5)
             {
                 quitGame();
             }
@@ -169,7 +188,7 @@ void showCredits()
 /**
  * This function will initialize an Azul game
  */
-void playGame(int seed)
+void playGame(int seed, bool shuffleTiles)
 {
     std::cout << std::endl;
     std::cout << "Starting a new Azul game" << std::endl;
@@ -181,8 +200,12 @@ void playGame(int seed)
     game->addPlayers(createPlayersFromUserInput());
     game->setTileBagAutomatically();
 
-    // Shuffle Tile Bag
-    shuffleTileBagDirectly(game->getTileBag(), seed);
+    // If shuffling tile bag is wanted
+    if (shuffleTiles == true)
+    {
+        // Shuffle Tile Bag
+        shuffleTileBagDirectly(game->getTileBag(), seed);
+    }
 
     // Add First Tile to Front of Shuffled Tile Bag
     game->getTileBag()->addFront(new Tile(FIRST_TILE));
@@ -279,7 +302,6 @@ std::vector<Player *> createPlayersFromUserInput()
     // Clear input
     std::cin.clear();
     std::cin.ignore(10000, '\n');
-
 
     // End loop when num of players exceeds the ceiling
     while (playerCount <= NUM_OF_PLAYERS)
