@@ -14,12 +14,12 @@
 
 #define NUM_OF_PLAYERS 2
 #define MAX_GAME_ROUNDS 6
-#define MOSAIC_DIM 5
+#define MOSAIC_DIM 6
 #define MOSAIC_BOARD_SIZE (MOSAIC_DIM * MOSAIC_DIM)
 #define NUM_OF_FACTORIES 5
 #define FACTORY_SIZE 4
 #define BROKEN_ROW_SIZE 7
-#define MOSAIC_BOARD_COLOR "byrullbyruulbyrrulbyyrulb"
+#define MOSAIC_BOARD_COLOR "byruloobyrullobyruulobyrrulobyyrulob"
 #define FIRST_FACTORY 0
 #define LAST_FACTORY 5
 #define FIRST_STORAGE_ROW 0
