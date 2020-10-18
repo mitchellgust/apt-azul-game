@@ -181,11 +181,6 @@ public:
     void printScores();
 
     /**
-     * Takes the tile bag and rearranges the indexes
-     */
-    void shuffleTileBag(LinkedList<Tile*> *tileBag, int seed);
-
-    /**
      * Sets the private integer 'seed'
      * @param inputtedSeed : new seed value
      */
