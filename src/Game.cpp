@@ -72,6 +72,9 @@ void Game::play()
     //Fill Tile Bag
     std::string bag;
 
+    //Fill Box Lid
+    std::string lid;
+
     // Ignore F tile
     for (int i = 1; i < NUM_OF_TILES_IN_TILE_BAG + 1; ++i)
     {
@@ -79,6 +82,14 @@ void Game::play()
     }
     // Save tile bag to input vector;
     savedInputs.push_back(bag);
+
+    // Get Box Lid Contents
+    for (int i = 0; i < boxLid->getLength() - 1; i++)
+    {
+        lid += boxLid->get(i)->getName();
+    }
+    // Save box lid to input vector;
+    savedInputs.push_back(lid);
 
     // Save Seed to file
     savedInputs.push_back(std::to_string(seed));
@@ -319,6 +330,16 @@ void Game::play()
             printScores();
             // Reset game state
             reset();
+            // Get Box Lid Contents
+            for (int i = 0; i < boxLid->getLength() - 1; i++)
+            {
+                std::cout << "Found something" << std::endl;
+                lid += boxLid->get(i)->getName();
+            }
+            std::cout << "Found: " << lid << std::endl;
+            savedInputs[1] = lid;
+            std::cout << "Placed as: " << savedInputs[1] << std::endl;
+
         }
     }
 }
@@ -420,6 +441,17 @@ void Game::setTileBagFromString(const std::string &line)
     for (size_t i = 0; i < line.length(); ++i)
     {
         tileBag->addBack(new Tile(line[i]));
+    }
+}
+
+void Game::setBoxLidFromString(const std::string &line)
+{
+    //Initialise Box Lid
+    boxLid = new LinkedList<Tile *>();
+    //Fill Box Lid
+    for (size_t i = 0; i < line.length(); ++i)
+    {
+        boxLid->addBack(new Tile(line[i]));
     }
 }
 
@@ -847,11 +879,8 @@ void Game::execute(const std::string &command, Player *player)
             }
         }
 
-        std::cout << "before countColorInRow == targetRow" << std::endl;
-
         if (countColorInRow == targetRow)
         {
-            std::cout << "inside countColorInRow == targetRow" << std::endl;
             for (int i = 0; i < MOSAIC_DIM; ++i)
             {
                 char temp = player->getGrid()[targetRow - 1][i].getName();
@@ -865,8 +894,6 @@ void Game::execute(const std::string &command, Player *player)
                     i = MOSAIC_DIM;
                 }
             }
-            std::cout << "after countColorInRow == targetRow" << std::endl;
-
         }
 
         // Initialise Score
@@ -1096,6 +1123,30 @@ void Game::testLoadGame(char *fileName)
     {
         getline(file, line);
 
+        // Validate Box Lid input
+        int count = 0;
+        for (size_t i = 0; i < line.size(); ++i)
+        {
+            size_t checked = validChars.find(line[i]);
+            if (checked == std::string::npos)
+            {
+                std::cout << "Corrupted save file. Box Lid contains invalid characters!" << std::endl;
+                std::cout << "Disengaging test mode..." << std::endl;
+                quitGame();
+            }
+            else
+            {
+                count++;
+            }
+        }
+        setBoxLidFromString(line);
+        lineCount++;
+    }
+
+    if (lineCount <= 3)
+    {
+        getline(file, line);
+
         // Set Seed
         setSeed(std::stoi(line));
 
@@ -1105,7 +1156,7 @@ void Game::testLoadGame(char *fileName)
     }
 
     // Fetch players' names
-    while (lineCount <= 4)
+    while (lineCount <= 5)
     {
         getline(file, line);
         if (line.empty())
@@ -1114,7 +1165,7 @@ void Game::testLoadGame(char *fileName)
             std::cout << "Disengaging test mode..." << std::endl;
             quitGame();
         }
-        if (lineCount == 3)
+        if (lineCount == 4)
         {
             players.push_back(new Player(line, lineCount - 1, true));
         }
@@ -1314,6 +1365,31 @@ void Game::load(const std::string &fileName)
     {
         getline(file, line);
 
+        // Validate Box Lid input
+        int count = 0;
+        for (size_t i = 0; i < line.size(); ++i)
+        {
+            size_t checked = validChars.find(line[i]);
+            if (checked == std::string::npos)
+            {
+                std::cout << "Corrupted save file. Box Lid contains invalid characters!" << std::endl;
+                std::cout << "Disengaging test mode..." << std::endl;
+                quitGame();
+            }
+            else
+            {
+                count++;
+            }
+        }
+        savedInputs.push_back(line);
+        setBoxLidFromString(line);
+        lineCount++;
+    }
+
+    if (lineCount <= 3)
+    {
+        getline(file, line);
+
         // Set Seed
         setSeed(std::stoi(line));
 
@@ -1323,7 +1399,7 @@ void Game::load(const std::string &fileName)
     }
 
     // Grab players' names
-    while (lineCount <= 4)
+    while (lineCount <= 5)
     {
         getline(file, line);
         if (line.empty())
@@ -1337,7 +1413,7 @@ void Game::load(const std::string &fileName)
             savedInputs.push_back(line);
         }
 
-        if (lineCount == 3)
+        if (lineCount == 4)
         {
             players.push_back(new Player(line, lineCount - 1, true));
         }
@@ -1634,6 +1710,17 @@ void Game::load(const std::string &fileName)
             }
             printScores();
             reset();
+             // Get Box Lid Contents
+            //Fill Box Lid
+            std::string lid;
+            for (int i = 0; i < boxLid->getLength() - 1; i++)
+            {
+                std::cout << "Found something" << std::endl;
+                lid += boxLid->get(i)->getName();
+            }
+            std::cout << "Found: " << lid << std::endl;
+            savedInputs[1] = lid;
+            std::cout << "Placed as: " << savedInputs[1] << std::endl;
         }
     }
     // Cleaning up

@@ -75,6 +75,12 @@ public:
     */
     void setTileBagFromString(const std::string & line);
 
+    /**
+    * Fills Box Lid with a list of tiles determined by a String input
+    * @param line : string to be parsed
+    */
+    void setBoxLidFromString(const std::string & line);
+
     /*
     * Administers the turn dependent on what the User has entered in the command line
     */
