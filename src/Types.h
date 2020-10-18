@@ -11,6 +11,7 @@
 #define DARK_BLUE 'B'
 #define LIGHT_BLUE 'L'
 #define BLACK 'U'
+#define ORANGE 'O'
 
 #define NUM_OF_PLAYERS 2
 #define MAX_GAME_ROUNDS 6
@@ -23,18 +24,18 @@
 #define FIRST_FACTORY 0
 #define LAST_FACTORY 5
 #define FIRST_STORAGE_ROW 0
-#define LAST_STORAGE_ROW 5
+#define LAST_STORAGE_ROW 6
 #define INVALID_COORDINATE -2
 #define MAX_TILE_NUM 20
-#define VALID_CHARS "RYBLU"
-#define TILE_BAG_VALID_CHARS "RYBLUF"
+#define VALID_CHARS "RYBLUO"
+#define TILE_BAG_VALID_CHARS "RYBLUOF"
 #define MAX_DIRECTIONS 4
 #define MAX_UP 0
-#define MAX_DOWN 4
-#define MAX_RIGHT 4
+#define MAX_DOWN 5
+#define MAX_RIGHT 5
 #define MAX_LEFT 0
-#define NUM_OF_TILES_IN_TILE_BAG 100
-#define TILE_BAG_BEFORE_SHUFFLE 99 // Without First Tile
+#define NUM_OF_TILES_IN_TILE_BAG 120
+#define TILE_BAG_BEFORE_SHUFFLE 119 // Without First Tile
 #define WHITESPACE ' '
 #define DOUBLE_WHITESPACE "  "
 #define NO_TILE '.'
