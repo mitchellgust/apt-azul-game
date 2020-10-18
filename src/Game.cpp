@@ -368,7 +368,7 @@ void Game::setTileBagAutomatically()
     // Initialize the tile bag
     tileBag = new LinkedList<Tile *>();
 
-    // 10R, 0B, 5Y, 5U, 5L
+    // 10R, 0B, 5Y, 5U, 5L, 10O
     for (int i = 0; i < 5; ++i)
     {
         tileBag->addBack(new Tile(RED));
@@ -376,16 +376,19 @@ void Game::setTileBagAutomatically()
         tileBag->addBack(new Tile(BLACK));
         tileBag->addBack(new Tile(LIGHT_BLUE));
         tileBag->addBack(new Tile(RED));
+        tileBag->addBack(new Tile(ORANGE));
+        tileBag->addBack(new Tile(ORANGE));
     }
-    // 0R, 10B, 5Y, 0U, 5L
+    // 0R, 10B, 5Y, 0U, 5L, 5O
     for (int i = 0; i < 5; ++i)
     {
         tileBag->addBack(new Tile(DARK_BLUE));
         tileBag->addBack(new Tile(YELLOW));
         tileBag->addBack(new Tile(DARK_BLUE));
         tileBag->addBack(new Tile(LIGHT_BLUE));
+        tileBag->addBack(new Tile(ORANGE));
     }
-    // 10R, 10B, 5Y, 10U, 0L
+    // 10R, 10B, 5Y, 10U, 0L, 0O
     for (int i = 0; i < 5; ++i)
     {
         tileBag->addBack(new Tile(RED));
@@ -396,13 +399,14 @@ void Game::setTileBagAutomatically()
         tileBag->addBack(new Tile(DARK_BLUE));
         tileBag->addBack(new Tile(DARK_BLUE));
     }
-    // 0R, 0B, 5Y, 5U, 10L
+    // 0R, 0B, 5Y, 5U, 10L, 5O
     for (int i = 0; i < 5; ++i)
     {
         tileBag->addBack(new Tile(LIGHT_BLUE));
         tileBag->addBack(new Tile(YELLOW));
         tileBag->addBack(new Tile(BLACK));
         tileBag->addBack(new Tile(LIGHT_BLUE));
+        tileBag->addBack(new Tile(ORANGE));
     }
 }
 
@@ -564,7 +568,7 @@ std::vector<std::string> Game::checkInput(std::string input, Player *player)
 
             if (row < FIRST_STORAGE_ROW || row > LAST_STORAGE_ROW)
             {
-                result.push_back("<row> must be a number between 0 and 5");
+                result.push_back("<row> must be a number between 0 and 6");
             }
             else
             {
@@ -591,7 +595,7 @@ std::vector<std::string> Game::checkInput(std::string input, Player *player)
             size_t correctColor = colors.find(inputArr[2]);
             if (correctColor == std::string::npos)
             {
-                result.push_back("<color> must be one of these values: R, Y, B, L, U");
+                result.push_back("<color> must be one of these values: R, Y, B, L, U, O");
             }
             else if (!tileExistsInAFactory(inputArr[2][0], factory))
             {
@@ -601,8 +605,8 @@ std::vector<std::string> Game::checkInput(std::string input, Player *player)
         } //Check other exceptions
         catch (std::exception const &e)
         {
-            result.push_back("<factory> must be a number between 0 and 5");
-            result.push_back("<row> must be a number between 0 and 5");
+            result.push_back("<factory> must be a number between 0 and " + LAST_FACTORY);
+            result.push_back("<row> must be a number between 0 and " + LAST_STORAGE_ROW);
         }
     }
     else
@@ -765,6 +769,10 @@ void Game::execute(const std::string &command, Player *player)
                 {
                     player->getUnlaidRow()[targetRow - 1][i].setName(LIGHT_BLUE);
                 }
+                else if (chosenTiles[0] == ORANGE)
+                {
+                    player->getUnlaidRow()[targetRow - 1][i].setName(ORANGE);
+                }
                 // Delete tiles
                 if (chosenTiles.length() > 0 && chosenTiles[0] != FIRST_TILE)
                 {
@@ -839,8 +847,11 @@ void Game::execute(const std::string &command, Player *player)
             }
         }
 
+        std::cout << "before countColorInRow == targetRow" << std::endl;
+
         if (countColorInRow == targetRow)
         {
+            std::cout << "inside countColorInRow == targetRow" << std::endl;
             for (int i = 0; i < MOSAIC_DIM; ++i)
             {
                 char temp = player->getGrid()[targetRow - 1][i].getName();
@@ -854,6 +865,8 @@ void Game::execute(const std::string &command, Player *player)
                     i = MOSAIC_DIM;
                 }
             }
+            std::cout << "after countColorInRow == targetRow" << std::endl;
+
         }
 
         // Initialise Score
