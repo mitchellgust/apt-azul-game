@@ -333,20 +333,25 @@ void Game::deductBrokenTile(Player *player)
         if (player->getBrokenRow()[i].getName() != WHITESPACE)
         {
             count++;
-            if (count <= BROKEN_ROW_SIZE - 4)
+            if (count <= BROKEN_ROW_SIZE - 5)
             {
                 // First three tiles -1 each
                 deductBy++;
             }
-            else if (count <= BROKEN_ROW_SIZE - 2)
+            else if (count <= BROKEN_ROW_SIZE - 3)
             {
                 // Nx two tiles -2 each
                 deductBy += 2;
             }
-            else if (count <= BROKEN_ROW_SIZE)
+            else if (count <= BROKEN_ROW_SIZE - 1)
             {
                 // Nx two tiles -3 each
                 deductBy += 3;
+            }
+            else if (count == BROKEN_ROW_SIZE)
+            {
+                // Last tile -4
+                deductBy += 4;
             }
         }
     }
@@ -1078,7 +1083,7 @@ void Game::testLoadGame(char *fileName)
         }
         if (count < NUM_OF_TILES_IN_TILE_BAG || count > NUM_OF_TILES_IN_TILE_BAG)
         {
-            std::cout << "Corrupted save file. Initial tile bag must have exactly 100 tiles!" << std::endl;
+            std::cout << "Corrupted save file. Initial tile bag must have exactly 120 tiles!" << std::endl;
             std::cout << "Disengaging test mode..." << std::endl;
             quitGame();
         }
@@ -1295,7 +1300,7 @@ void Game::load(const std::string &fileName)
         }
         if (count < NUM_OF_TILES_IN_TILE_BAG || count > NUM_OF_TILES_IN_TILE_BAG)
         {
-            std::cout << "Corrupted save file. Initial tile bag must have exactly 100 tiles!" << std::endl;
+            std::cout << "Corrupted save file. Initial tile bag must have exactly 120 tiles!" << std::endl;
             std::cout << "Disengaging test mode..." << std::endl;
             quitGame();
         }
