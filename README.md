@@ -5,8 +5,8 @@
 #### Project: 
 - A two-player implementation of the Azul Board Game for CLI using C++14. (Developed: Oct 2020) 
 
-#### Team Report:
-- [Summary of Our Implementation and Game Extentions](https://github.com/s3782095/apt-azul-game/blob/e397764feca554d64397c92e7db55b5640e33ef8/RAM_Milestone4_APT.pdf)
+#### View Report:
+- [Summary of Our Implementation and Game Extentions 📚 ](https://github.com/s3782095/apt-azul-game/blob/e397764feca554d64397c92e7db55b5640e33ef8/RAM_Milestone4_APT.pdf)
 
 #### Members: 
 - Anh Nguyen (s3616128)
